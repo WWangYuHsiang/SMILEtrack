@@ -1,0 +1,12 @@
+/pretrained/*
+/YOLOX_outputs/
+/runs/
+/build
+/.idea/
+*.pyc
+/tools/private
+wandb/
+*egg-info*
+fast_reid/datasets/MOT17-ReID
+*/__pycache__
+*.so
