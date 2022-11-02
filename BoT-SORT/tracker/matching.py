@@ -195,3 +195,19 @@ def fuse_score(cost_matrix, detections):
     fuse_sim = iou_sim * det_scores
     fuse_cost = 1 - fuse_sim
     return fuse_cost
+
+def gate(cost_matrix, emb_cost):
+    """
+    :param tracks: list[STrack]
+    :param detections: list[BaseTrack]
+    :param metric:
+    :return: cost_matrix np.ndarray
+    """
+
+    if cost_matrix.size == 0:
+        return cost_matrix
+    
+    index = emb_cost > 0.3
+    cost_matrix[index] = 1
+ 
+    return cost_matrix
