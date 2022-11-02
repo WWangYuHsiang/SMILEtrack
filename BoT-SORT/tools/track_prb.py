@@ -8,19 +8,22 @@ import torch
 import torch.backends.cudnn as cudnn
 from numpy import random
 
-from yolov7.models.experimental import attempt_load
-from yolov7.utils.datasets import LoadStreams, LoadImages
-from yolov7.utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, \
+from prb.models.experimental import attempt_load
+from prb.utils.datasets import LoadStreams, LoadImages
+from prb.utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, \
     apply_classifier, \
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
-from yolov7.utils.plots import plot_one_box
-from yolov7.utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
+from prb.utils.plots import plot_one_box
+from prb.utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
+
+from tracker.mc_bot_sort import BoTSORT
+from tracker.tracking_utils.timer import Timer
 
 #from tracker.mc_bot_sort import BoTSORT
 from tracker.mc_bot_sort_copy import BoTSORT
 from tracker.tracking_utils.timer import Timer
 
-sys.path.insert(0, './yolov7')
+sys.path.insert(0, './prb')
 sys.path.append('.')
 
 # Global
