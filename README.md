@@ -1,4 +1,5 @@
 # SMILEtrack
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/parallel-residual-bi-fusion-feature-pyramid/multi-object-tracking-on-mot17)](https://paperswithcode.com/sota/multi-object-tracking-on-mot17?p=parallel-residual-bi-fusion-feature-pyramid)
 This code is based on the implementation of [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort)
 
 Preprint will be appearing soon
