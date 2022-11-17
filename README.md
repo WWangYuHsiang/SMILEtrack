@@ -22,7 +22,14 @@ Download [MOT17](https://motchallenge.net/data/MOT17/) from the [official websit
       
     
 ```
-# 4.Tracking
+# 4.Training PRBNet
+Single GPU training
+```
+cd <BoT-SORT_dir>
+$ python train_aux.py --workers 8 --device 0 --batch-size 4 --data data/mot.yaml --img 1280 1280 --cfg cfg/training/PRB_Series/yolov7-PRB-2PY-e6e-tune-auxpy1.yaml --weights './yolov7-prb-2py-e6e.pt' --name yolov7-prb --hyp data/hyp.scratch.p6.yaml --epochs 100
+```
+
+# 5.Tracking
 
 By submitting the txt files produced in this part to MOTChallenge website and you can get the same results as in the paper.
 Tuning the tracking parameters carefully could lead to higher performance. In the paper we apply ByteTrack's calibration.
@@ -39,12 +46,12 @@ cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
-# 5.Tracking performance
+# 6.Tracking performance
 ## Results on MOT17 challenge test set
 | Tracker        | MOTA           | IDF1  | HOTA |
 | ------------- |:-------------:| -----:  | -----:|
 | SMILEtrack       | 81.06      | 80.5 | 65.24 |
 
-# 6.Acknowledgement
+# 7.Acknowledgement
 A large part of the codes, ideas and results are borrowed from [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), thanks for their excellent work!
 
