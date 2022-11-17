@@ -19,8 +19,19 @@ Download [MOT17](https://motchallenge.net/data/MOT17/) from the [official websit
       ├── MOT17
       │      ├── train
       │      └── test    
-      
+      └——————crowdhuman
+      |         └——————Crowdhuman_train
+      |         └——————Crowdhuman_val
+      |         └——————annotation_train.odgt
+      |         └——————annotation_val.odgt
+      └——————MOT20
+      |        └——————train       
+      |        └——————test
+      └——————Cityscapes
+               └——————images
+               └——————labels_with_ids
     
+
 ```
 # 4.Training PRBNet
 Single GPU training
