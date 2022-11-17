@@ -69,7 +69,7 @@ $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 | SMILEtrack |  81.06  |   80.5 |   65.28    |
 
 
-## Results on MOT17 challenge test set
+## Results on MOT20 challenge test set
 | Tracker | MOTA | IDF1 | HOTA |
 |-------|:-----:|------:|------:|
 | SMILEtrack |  78.19  |   77.53 |   65.28    |
