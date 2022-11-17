@@ -16,7 +16,9 @@ SMILEtrack code is based on [ByteTrack](https://github.com/ifzhang/ByteTrack) an
 Visit their installation guides for more setup options.
 
 # 2. Download
-PRBNet weight [link](https://drive.google.com/file/d/1BBkBTbdiUgwgeQ-BWbe1i1BbYXseHU4S/view?usp=share_link)
+PRBNet MOT17 weight [link]()
+
+PRBNet MOT20 weight [link]()
 
 SLM weight [link](https://drive.google.com/file/d/1RDuVo7jYBkyBR4ngnBaVQUtHL8nAaGaL/view?usp=share_link)
 
