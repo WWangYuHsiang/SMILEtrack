@@ -28,3 +28,9 @@ cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
+# 4.Tracking performance
+## Results on MOT17 challenge test set
+| Tracker        | MOTA           | IDF1  | HOTA |
+| ------------- |:-------------:| -----:  | -----:|
+| SMILEtrack       | 81.06      | 80.5 | 65.24 |
+
