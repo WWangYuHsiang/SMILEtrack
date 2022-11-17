@@ -3,7 +3,7 @@ This code is based on the implementation of [ByteTrack](https://github.com/ifzha
 
 Preprint will be appearing soon
 
-Paper with code [link]([[https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/parallel-residual-bi-fusion-feature-pyramid/multi-object-tracking-on-mot17](https://paperswithcode.com/paper/parallel-residual-bi-fusion-feature-pyramid)](https://paperswithcode.com/paper/parallel-residual-bi-fusion-feature-pyramid))
+Paper with code [link](https://paperswithcode.com/paper/parallel-residual-bi-fusion-feature-pyramid)
 
 # 1. Installation
 
