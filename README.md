@@ -69,6 +69,11 @@ $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 | SMILEtrack |  81.06  |   80.5 |   65.28    |
 
 
+## Results on MOT17 challenge test set
+| Tracker | MOTA | IDF1 | HOTA |
+|-------|:-----:|------:|------:|
+| SMILEtrack |  78.19  |   77.53 |   65.28    |
+
 # 7.Acknowledgement
 A large part of the codes, ideas and results are borrowed from [PRBNet](https://github.com/pingyang1117/PRBNet_PyTorch), [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), [yolov7](https://github.com/WongKinYiu/yolov7), thanks for their excellent work!
 
