@@ -62,7 +62,13 @@ cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
+# 6.Tracking performance
+## Results on MOT17 challenge test set
+| Tracker | MOTA | IDF1 | HOTA |
+|-------|:-----:|------:|------:|
+| SMILEtrack |  81.06  |   80.5 |   65.28    |
 
-# 6.Acknowledgement
+
+# 7.Acknowledgement
 A large part of the codes, ideas and results are borrowed from [PRBNet](https://github.com/pingyang1117/PRBNet_PyTorch), [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), [yolov7](https://github.com/WongKinYiu/yolov7), thanks for their excellent work!
 
