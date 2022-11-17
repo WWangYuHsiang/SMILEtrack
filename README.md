@@ -3,7 +3,9 @@
 
 This code is based on the implementation of [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort)
 
-Preprint will be appearing soon
+> **SMILEtrack: SiMIlarity LEarning for Multiple Object Tracking**
+
+> Preprint will be appearing soon
 
 # 1. Installation
 
