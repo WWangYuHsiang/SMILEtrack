@@ -3,6 +3,7 @@ This code is based on the implementation of [ByteTrack](https://github.com/ifzha
 # 1. Installation
 
 SMILEtrack code is based on [ByteTrack](https://github.com/ifzhang/ByteTrack) and [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort)
+
 Visit their installation guides for more setup options.
 
 # 2. Download
