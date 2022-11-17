@@ -53,5 +53,5 @@ $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 | SMILEtrack       | 81.06      | 80.5 | 65.24 |
 
 # 7.Acknowledgement
-A large part of the codes, ideas and results are borrowed from [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), thanks for their excellent work!
+A large part of the codes, ideas and results are borrowed from [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), [yolov7](https://github.com/WongKinYiu/yolov7),[prb](https://github.com/pingyang1117/PRBNet_PyTorch), thanks for their excellent work!
 
