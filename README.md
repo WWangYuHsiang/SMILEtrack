@@ -1,4 +1,4 @@
-# MOTtracking
+# SMILEtrack
 This code is based on the implementation of [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort)
 
 
