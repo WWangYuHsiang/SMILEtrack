@@ -33,7 +33,7 @@ cd <BoT-SORT_dir>
 $ python3 tools/track.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
-## Track by detector PRBNET
+## Track by detector PRBNet
 ```
 cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
