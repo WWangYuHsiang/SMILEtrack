@@ -19,10 +19,8 @@ Download [MOT17](https://motchallenge.net/data/MOT17/) from the [official websit
       ├── MOT17
       │      ├── train
       │      └── test    
-      │
-      └── MOT20
-             ├── train
-             └── test
+      
+    
 ```
 # 4.Tracking
 
