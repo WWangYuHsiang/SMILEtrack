@@ -13,10 +13,13 @@ By submitting the txt files produced in this part to MOTChallenge website and yo
 Tuning the tracking parameters carefully could lead to higher performance. In the paper we apply ByteTrack's calibration.
 
 ## Track by detector YOLOX
+```
 cd <BoT-SORT_dir>
-$ python3 tools/track.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
-$ python3 tools/interpolation.py --txt_path <path_to_track_result>
 
+$ python3 tools/track.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
+
+$ python3 tools/interpolation.py --txt_path <path_to_track_result>
+```
 ## Track by detector PRB
 cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
