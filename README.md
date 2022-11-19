@@ -68,7 +68,7 @@ label: label maps;
 
 list: contains train.txt, val.txt and test.txt, each file records the image names (XXX.png) in the change detection dataset.
 
-For the more detail of the training setting, you can follow [BIT_CD]([https://drive.google.com/file/d/1HRjka6Ma7Nrcmzt9FWNQ2ATviNGBuXLC/view?usp=share_link](https://github.com/justchenhao/BIT_CD)) training code.
+For the more detail of the training setting, you can follow [BIT_CD]([[https://drive.google.com/file/d/1HRjka6Ma7Nrcmzt9FWNQ2ATviNGBuXLC/view?usp=share_link](https://github.com/justchenhao/BIT_CD](https://github.com/justchenhao/BIT_CD)) training code.
  
 # 5.Tracking
 
