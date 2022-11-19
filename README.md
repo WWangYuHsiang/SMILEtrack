@@ -50,7 +50,7 @@ Single GPU training
 cd <prb_dir>
 $ python train_aux.py --workers 8 --device 0 --batch-size 4 --data data/mot.yaml --img 1280 1280 --cfg cfg/training/PRB_Series/yolov7-PRB-2PY-e6e-tune-auxpy1.yaml --weights './yolov7-prb-2py-e6e.pt' --name yolov7-prb --hyp data/hyp.scratch.p6.yaml --epochs 100
 ```
-# 4.Training SLM
+# 5.Training SLM
 ## Data structure
 ```
 <dataets_dir>
@@ -68,9 +68,9 @@ label: label maps;
 
 list: contains train.txt, val.txt and test.txt, each file records the image names (XXX.png) in the change detection dataset.
 
-For the more detail of the training setting, you can follow [BIT_CD]([[https://drive.google.com/file/d/1HRjka6Ma7Nrcmzt9FWNQ2ATviNGBuXLC/view?usp=share_link](https://github.com/justchenhao/BIT_CD](https://github.com/justchenhao/BIT_CD)) training code.
+For the more detail of the training setting, you can follow [BIT_CD](https://github.com/justchenhao/BIT_CD) training code.
  
-# 5.Tracking
+# 6.Tracking
 
 By submitting the txt files produced in this part to MOTChallenge website and you can get the same results as in the paper.
 Tuning the tracking parameters carefully could lead to higher performance. In the paper we apply ByteTrack's calibration.
@@ -87,7 +87,7 @@ cd <BoT-SORT_dir>
 $ python3 tools/track_prb.py <dataets_dir/MOT17> --default-parameters --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
-# 6.Tracking performance
+# 7.Tracking performance
 ## Results on MOT17 challenge test set
 | Tracker | MOTA | IDF1 | HOTA |
 |-------|:-----:|------:|------:|
@@ -99,6 +99,6 @@ $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 |-------|:-----:|------:|------:|
 | SMILEtrack |  78.19  |   77.53 |   65.28    |
 
-# 7.Acknowledgement
+# 8.Acknowledgement
 A large part of the codes, ideas and results are borrowed from [PRBNet](https://github.com/pingyang1117/PRBNet_PyTorch), [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort), [yolov7](https://github.com/WongKinYiu/yolov7), thanks for their excellent work!
 
