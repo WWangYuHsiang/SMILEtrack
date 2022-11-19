@@ -50,7 +50,26 @@ Single GPU training
 cd <prb_dir>
 $ python train_aux.py --workers 8 --device 0 --batch-size 4 --data data/mot.yaml --img 1280 1280 --cfg cfg/training/PRB_Series/yolov7-PRB-2PY-e6e-tune-auxpy1.yaml --weights './yolov7-prb-2py-e6e.pt' --name yolov7-prb --hyp data/hyp.scratch.p6.yaml --epochs 100
 ```
+# 4.Training SLM
+## Data structure
+```
+<dataets_dir>
+    ├─A
+    ├─B
+    ├─label
+    └─list
+    
+```
+A: images of t1 phase;
 
+B:images of t2 phase;
+
+label: label maps;
+
+list: contains train.txt, val.txt and test.txt, each file records the image names (XXX.png) in the change detection dataset.
+
+For the more detail of the training setting, you can follow [BIT_CD]([https://drive.google.com/file/d/1HRjka6Ma7Nrcmzt9FWNQ2ATviNGBuXLC/view?usp=share_link](https://github.com/justchenhao/BIT_CD)) training code.
+ 
 # 5.Tracking
 
 By submitting the txt files produced in this part to MOTChallenge website and you can get the same results as in the paper.
