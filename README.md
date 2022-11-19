@@ -62,7 +62,7 @@ $ python train_aux.py --workers 8 --device 0 --batch-size 4 --data data/mot.yaml
 ```
 A: images of t1 phase;
 
-B:images of t2 phase;
+B: images of t2 phase;
 
 label: label maps;
 
