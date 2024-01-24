@@ -3,11 +3,15 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/smiletrack-similarity-learning-for-multiple/multi-object-tracking-on-mot20-1)](https://paperswithcode.com/sota/multi-object-tracking-on-mot20-1?p=smiletrack-similarity-learning-for-multiple)
 
+### **SMILEtrack: SiMIlarity LEarning for Multiple Object Tracking (AAAI 2024)**  
+Yu-Hsiang Wang, Jun-Wei Hsieh, Ping-Yang Chen, Ming-Ching Chang, Hung Hin So, Xin Li  
+[arXiv:2211.08824](https://arxiv.org/abs/2211.08824) 
+
+
 This code is based on the implementation of [ByteTrack](https://github.com/ifzhang/ByteTrack), [BoT-SORT](https://github.com/NirAharon/BoT-SORT#bot-sort)
 
-> **SMILEtrack: SiMIlarity LEarning for Multiple Object Tracking**
-> 
-> Preprint will be appearing soon
+
+
 
 # 1. Installation
 
