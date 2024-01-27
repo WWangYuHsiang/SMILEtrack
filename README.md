@@ -110,7 +110,7 @@ Run SMILEtrack with yolov7:
 cd <SMILEtrack_Official-main/yolov7>
 $ python3 smiletrack_demo_yolov7.py --weights <path_to_yolov7_weights> --source <path_to_images/video> --project <save_result_dir>
 ```
-If your detector code is similar to the yolo series. You can put the folder "SMILEtrack_Official-main/tracker" in to your detector directory and modify the example code(like **smiletrack_demo_prb.py**) to apply SMILEtrack on your detector.
+If your detector code is similar to the yolo series. You can add "SMILEtrack_Official/tracker" into your detector directory and modify the example code(like **smiletrack_demo_prb.py**) to apply SMILEtrack on your detector.
 # 7.Tracking performance
 ## Results on MOT17 challenge test set
 | Tracker | MOTA | IDF1 | HOTA |
