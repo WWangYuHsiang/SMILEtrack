@@ -1,0 +1,297 @@
+# parameters
+nc: 80  # number of classes
+depth_multiple: 1.0  # model depth multiple
+width_multiple: 1.0  # layer channel multiple
+
+# anchors
+anchors:
+  - [ 19,27,  44,40,  38,94 ]  # P3/8
+  - [ 96,68,  86,152,  180,137 ]  # P4/16
+  - [ 140,301,  303,264,  238,542 ]  # P5/32
+  - [ 436,615,  739,380,  925,792 ]  # P6/64
+
+# yolov7 backbone
+backbone:
+  # [from, number, module, args],
+  [[-1, 1, ReOrg, []],  # 0
+   [-1, 1, Conv, [80, 3, 1]],  # 1-P1/2
+   
+   [-1, 1, DownC, [160]],  # 2-P2/4  
+   [-1, 1, Conv, [64, 1, 1]],
+   [-2, 1, Conv, [64, 1, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [160, 1, 1]],  # 12
+   [-11, 1, Conv, [64, 1, 1]],
+   [-12, 1, Conv, [64, 1, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [-1, 1, Conv, [64, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [160, 1, 1]],  # 22
+   [[-1, -11], 1, Shortcut, [1]],  # 23
+         
+   [-1, 1, DownC, [320]],  # 24-P3/8  
+   [-1, 1, Conv, [128, 1, 1]],
+   [-2, 1, Conv, [128, 1, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [320, 1, 1]],  # 34
+   [-11, 1, Conv, [128, 1, 1]],
+   [-12, 1, Conv, [128, 1, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [-1, 1, Conv, [128, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [320, 1, 1]],  # 44
+   [[-1, -11], 1, Shortcut, [1]],  # 45
+         
+   [-1, 1, DownC, [640]],  # 46-P4/16  
+   [-1, 1, Conv, [256, 1, 1]],
+   [-2, 1, Conv, [256, 1, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [640, 1, 1]],  # 56
+   [-11, 1, Conv, [256, 1, 1]],
+   [-12, 1, Conv, [256, 1, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [-1, 1, Conv, [256, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [640, 1, 1]],  # 66
+   [[-1, -11], 1, Shortcut, [1]],  # 67
+         
+   [-1, 1, DownC, [960]],  # 68-P5/32  
+   [-1, 1, Conv, [384, 1, 1]],
+   [-2, 1, Conv, [384, 1, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [960, 1, 1]],  # 78
+   [-11, 1, Conv, [384, 1, 1]],
+   [-12, 1, Conv, [384, 1, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [-1, 1, Conv, [384, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [960, 1, 1]],  # 88
+   [[-1, -11], 1, Shortcut, [1]],  # 89
+         
+   [-1, 1, DownC, [1280]],  # 90-P6/64  
+   [-1, 1, Conv, [512, 1, 1]],
+   [-2, 1, Conv, [512, 1, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [1280, 1, 1]],  # 100 
+   [-11, 1, Conv, [512, 1, 1]],
+   [-12, 1, Conv, [512, 1, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [-1, 1, Conv, [512, 3, 1]],
+   [[-1, -3, -5, -7, -8], 1, Concat, [1]],
+   [-1, 1, Conv, [1280, 1, 1]],  # 110
+   [[-1, -11], 1, Shortcut, [1]],  # 111 
+  ]
+
+# 1 (P1 backbone)   /2
+# 23 (P2 backbone)  /4
+# 45 (P3 backbone)  /8
+# 67 (P4 backbone)  /16
+# 89 (P5 backbone)  /32
+# 111 (P6 backbone) /64
+
+
+# yolov7 head
+head:
+  [
+   # bifusion module 1
+   [111, 1, SPPCSPC, [640]],  # 112
+   #    RB block1, route backbone P5+P4+P6
+   #    output/current/shallow/deep layer depth 480/384/192/384
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [384, 1, 1]], #113
+   [[89, 67, -1], 1, RBBlockA, [480, '384,1,1;192,1,2', 2, 'nearest']],  # 114
+   [-1, 1, Bottleneck, [384, False]],
+   [-1, 2, BottleneckCSPB, [192]],  # 116
+   
+   #    RB block2, route backbone P4+P3+RB Block1
+   #    output/current/shallow/deep layer depth 320/256/128/256
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [256, 1, 1]], # 117
+   [[67, 45, -1], 1, RBBlockA, [320, '256,1,1;128,1,2', 2, 'nearest']],  # 118
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 120
+
+   #    RB block3, route backbone P3+P2+RB Block2
+   #    output/current/shallow/deep layer depth 160/128/64/128
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [128, 1, 1]], # 121
+   [[45, 23, -1], 1, RBBlockA, [160, '128,1,1;64,1,2', 2, 'nearest']],  # 122
+   [-1, 1, Bottleneck, [128, False]],
+   [-1, 2, BottleneckCSPB, [64]],  # 124
+   
+   #    BFM1
+   [[-1,121], 1, BFM, [320, '160,1,1;160,1,1']], 
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 127
+
+   #    BFM2
+   [[-1,117], 1, BFM, [480, '240,1,1;240,1,1']], 
+   [-1, 1, Bottleneck, [384, False]],
+   [-1, 2, BottleneckCSPB, [192]],  # 130
+
+   #    BFM3
+   [[-1,113], 1, BFM, [640, '320,1,1;320,1,1']], 
+   [-1, 1, Bottleneck, [512, False]],
+   [-1, 2, BottleneckCSPB, [256]],  # 133
+   # end of bifusion module 1
+   
+   
+   # bifusion module 2
+   [111, 1, SPPCSPC, [640]],  # 134
+   #    RBblock1, route backbone P5+P4+P6
+   #    output/current/shallow/deep layer depth 480/384/192/384
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [384, 1, 1]], #135
+   [[89, 67, -1], 1, RBBlockA, [480, '384,1,1;192,1,2', 2, 'nearest']],  # 136
+   [-1, 1, Bottleneck, [384, False]], #137
+   [-1, 2, BottleneckCSPB, [192]],  # 138
+   
+   #    RB block2, route backbone P4+P3+RB Block1
+   #    output/current/shallow/deep layer depth 320/256/128/256
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [256, 1, 1]], #139
+   [[67, 45, -1], 1, RBBlockA, [320, '256,1,1;128,1,2', 2, 'nearest']],  # 140
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 142
+
+   #    RB block3, route backbone P3+P2+RB Block2
+   #    output/current/shallow/deep layer depth 160/128/64/128
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [128, 1, 1]], #143
+   [[45, 23, -1], 1, RBBlockA, [160, '128,1,1;64,1,2', 2, 'nearest']],  # 144
+   [-1, 1, Bottleneck, [128, False]],
+   [-1, 2, BottleneckCSPB, [64]],  # 146
+
+   #    BFM1
+   [[-1,143], 1, BFM, [320, '160,1,1;160,1,1']], 
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 149
+
+   #    BFM2
+   [[-1,139], 1, BFM, [480, '240,1,1;240,1,1']], 
+   [-1, 1, Bottleneck, [384, False]],
+   [-1, 2, BottleneckCSPB, [192]],  # 152
+
+   #    BFM3
+   [[-1,135], 1, BFM, [640, '320,1,1;320,1,1']], 
+   [-1, 1, Bottleneck, [512, False]],
+   [-1, 2, BottleneckCSPB, [256]],  # 155
+   # end of bifusion module 2
+
+
+   # bifusion module 3
+   [111, 1, SPPCSPC, [640]],  # 156
+   #    RBblock1, route backbone P5+P4+P6
+   #    output/current/shallow/deep layer depth 480/384/192/384
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [384, 1, 1]], #157
+   [[89, 67, -1], 1, RBBlockA, [480, '384,1,1;192,1,2', 2, 'nearest']],  # 158
+   [-1, 1, Bottleneck, [384, False]], #159
+   [-1, 2, BottleneckCSPB, [192]],  # 160
+   
+   #    RB block2, route backbone P4+P3+RB Block1
+   #    output/current/shallow/deep layer depth 320/256/128/256
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [256, 1, 1]], #161
+   [[67, 45, -1], 1, RBBlockA, [320, '256,1,1;128,1,2', 2, 'nearest']],  # 162
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 164
+
+   #    RB block3, route backbone P3+P2+RB Block2
+   #    output/current/shallow/deep layer depth 160/128/64/128
+   #    upsample scale factor 2, mode nearest
+   [-1, 1, Conv, [128, 1, 1]], #165
+   [[45, 23, -1], 1, RBBlockA, [160, '128,1,1;64,1,2', 2, 'nearest']],  # 166
+   [-1, 1, Bottleneck, [128, False]],
+   [-1, 2, BottleneckCSPB, [64]],  # 168
+
+   #    BFM1
+   [[-1,165], 1, BFM, [320, '160,1,1;160,1,1']], 
+   [-1, 1, Bottleneck, [256, False]],
+   [-1, 2, BottleneckCSPB, [128]],  # 171
+
+   #    BFM2
+   [[-1,161], 1, BFM, [480, '240,1,1;240,1,1']], 
+   [-1, 1, Bottleneck, [384, False]],
+   [-1, 2, BottleneckCSPB, [192]],  # 174
+
+   #    BFM3
+   [[-1,157], 1, BFM, [640, '320,1,1;320,1,1']], 
+   [-1, 1, Bottleneck, [512, False]],
+   [-1, 2, BottleneckCSPB, [256]],  # 177
+   # end of bifusion module 3
+
+   [[168, 146, 124], 1, Concat, [1]], # 178 multi-pyramid fusion PY3/8
+   [-1, 2, BottleneckCSPB, [192]], # 179 bottleneck = PY - 1
+   [[171, 149, 127], 1, Concat, [1]],  # 180 multi-pyramid fusion PY4/16
+   [-1, 2, BottleneckCSPB, [256]], # 181 bottleneck = PY - 1
+   [[174, 152, 130], 1, Concat, [1]], # 182 multi-pyramid fusion PY5/32
+   [-1, 2, BottleneckCSPB, [384]], # 183  bottleneck = PY - 1
+   [[177, 155, 133], 1, Concat, [1]], # 184 multi-pyramid PY6/64
+   [-1, 2, BottleneckCSPB, [512]], # 185 bottleneck = PY - 1
+   
+   
+   #Lead Head
+   [179, 1, Conv, [320, 3, 1]],
+   [181, 1, Conv, [640, 3, 1]],
+   [183, 1, Conv, [960, 3, 1]],   
+   [185, 1, Conv, [1280, 3, 1]],
+
+   #Iux Head
+   [124, 1, Conv, [320, 3, 1]],
+   [120, 1, Conv, [640, 3, 1]],
+   [116, 1, Conv, [960, 3, 1]],   
+   [113, 1, Conv, [1280, 3, 1]],
+
+   [[186,187,188,189,190,191,192,193], 1, IAuxDetect, [nc, anchors]],   # Detect(P3, P4, P5, P6)
+  ]

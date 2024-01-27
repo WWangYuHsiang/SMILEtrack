@@ -1,0 +1,82 @@
+# parameters
+nc: 80  # number of classes
+depth_multiple: 1.0  # model depth multiple
+width_multiple: 1.0  # layer channel multiple
+
+# anchors
+anchors:
+  - [12,16, 19,36, 40,28]  # P3/8
+  - [36,75, 76,55, 72,146]  # P4/16
+  - [142,110, 192,243, 459,401]  # P5/32
+
+# MSP-Darknet backbone
+backbone:
+  # [from, number, module, args]
+  # assume input shape = 3 x 640 x 640
+  [[-1, 1, Conv, [32, 3, 1]],  # 0          # 32   x 640 x 640                    
+   [-1, 1, Conv, [64, 3, 2]],  # 1-P1/2     # 64   x 320 x 320
+   [-1, 1, Bottleneck, [64]],               # 64   x 320 x 320
+   [-1, 1, Conv, [192, 3, 2]],  # 3-P2/4    # 128  x 160 x 160
+   [-1, 2, BottleneckMSPA, [192]],          # 128  x 160 x 160
+   [-1, 1, Conv, [384, 3, 2]],  # 5-P3/8    # 256  x 80  x 80
+   [-1, 4, BottleneckMSPA, [384]],          # 256  x 80  x 80
+   [-1, 1, Conv, [640, 3, 2]],  # 7-P4/16   # 512  x 40  x 40
+   [-1, 4, BottleneckMSPA, [640]],          # 512  x 40  x 40
+   [-1, 1, Conv, [1024, 3, 2]], # 9-P5/32   # 1024 x 20  x 20
+   [-1, 2, BottleneckMSPA, [1024]],  # 10   # 1024 x 20  x 20
+  ]
+
+# CSP-Dark-PAN head feat PRB neck
+head:
+  [[8, 1, SPPCSPC, [256]], # 11 bifusion module 2 start                 # 256  x 40  x 40
+   [10, 1, SPPCSPC, [512]], # 12 bifusion module 1 start                # 512  x 20  x 20
+   [-1, 1, Conv, [256, 1, 1]], # route PRB_1                            # 256  x 20  x 20
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # RB block1 start # 14   # 256  x 40  x 40
+   [6, 1, Conv, [128, 1, 2]], # route backbone P3                       # 128  x 40  x 40
+   [8, 1, Conv, [256, 1, 1]], # route backbone P4                       # 256  x 40  x 40
+   [[-1, -2, -3], 1, Concat, [1]], # RB block1 end # 17                 # 640  x 40  x 40 
+   [-1, 1, Conv, [256, 1, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 3, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 1, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 3, 1]],                                          # 256  x 40  x 40
+   [-1, 2, BottleneckCSPB, [256]], # 22                                 # 256  x 40  x 40
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 40  x 40
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # RB block2 start #24    # 128  x 80  x 80
+   [4, 1, Conv, [64, 1, 2]],  # route backbone P2                       # 64   x 80  x 80
+   [6, 1, Conv, [128, 1, 1]], # route backbone P3                       # 128  x 80  x 80
+   [[-1, -2, -3], 1, Concat, [1]], # RB block2 end #27                  # 320  x 80  x 80
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 3, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 3, 1]], # 31 bifusion module 1 end               # 128  x 80  x 80
+   [11, 1, Conv, [128, 1, 2]], #32 route PRB_2                          # 128  x 20  x 20
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # RB block1 start # 33   # 128  x 40  x 40
+   [4, 1, Conv, [64, 1, 4]],  # route backbone P2                       # 64   x 40  x 40
+   [6, 1, Conv, [128, 1, 2]], # route backbone P3                       # 128  x 40  x 40
+   [[-1, -2, -3], 1, Concat, [1]], # RB block1 end # 36                 # 320  x 40  x 40
+   [-1, 1, Conv, [256, 1, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 3, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 1, 1]],                                          # 256  x 40  x 40
+   [-1, 1, Conv, [256, 3, 1]],                                          # 256  x 40  x 40
+   [-1, 2, BottleneckCSPB, [256]], # 41                                 # 256  x 40  x 40
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 40  x 40
+   [-1, 1, nn.Upsample, [None, 2, 'nearest']], # RB block2 start #43    # 128  x 80  x 80
+   [2, 1, Conv, [32, 1, 4]],  # route backbone P1                       # 32   x 80  x 80
+   [4, 1, Conv, [64, 1, 2]], # route backbone P2                        # 64   x 80  x 80
+   [[-1, -2, -3], 1, Concat, [1]], # RB block2 end #46                  # 224  x 80  x 80
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 3, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 1, 1]],                                          # 128  x 80  x 80
+   [-1, 1, Conv, [128, 3, 1]], # 50 bifusion module 2 end               # 128  x 80  x 80
+   [[-1, 31], 1, Concat, [1]], # 51 multi-pyramid fusion PY3/8          # 256  x 80  x 80
+   [-1, 3, BottleneckCSPB, [128]], #52 bottleneck = PY + 2              # 128  x 80  x 80
+   [-1, 1, Conv, [256, 3, 1]],                                          # 256  x 80  x 80
+   [[41, 22], 1, Concat, [1]],  #54 multi-pyramid fusion PY4/16         # 512  x 40  x 40
+   [-1, 3, BottleneckCSPB, [256]], #55 bottleneck = PY + 2              # 256  x 40  x 40
+   [-1, 1, Conv, [512, 3, 1]],                                          # 512  x 40  x 40
+   [[32, 12], 1, Concat, [1]],  #57 multi-pyramid fusion PY5/32         # 640  x 20  x 20
+   [-1, 3, BottleneckCSPB, [512]], #58 bottleneck = PY + 2              # 512  x 20  x 20
+   [-1, 1, Conv, [1024, 3, 1]],                                         # 1024 x 20  x 20
+
+   [[53,56,59], 1, Detect, [nc, anchors]],   # Detect(P3, P4, P5)       # 255  x 3   x 80/40/20 x 80/40/20 x 85
+  ]

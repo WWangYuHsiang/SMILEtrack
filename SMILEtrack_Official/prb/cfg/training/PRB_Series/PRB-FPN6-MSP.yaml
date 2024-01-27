@@ -1,0 +1,99 @@
+# parameters
+nc: 80  # number of classes
+depth_multiple: 1.0  # model depth multiple
+width_multiple: 1.0  # layer channel multiple
+
+# anchors
+anchors:
+  - [ 19,27,  44,40,  38,94 ]  # P3/8
+  - [ 96,68,  86,152,  180,137 ]  # P4/16
+  - [ 140,301,  303,264,  238,542 ]  # P5/32
+  - [ 436,615,  739,380,  925,792 ]  # P6/64
+
+# MSP-P6 backbone
+backbone:
+  # [from, number, module, args]
+  [[-1, 1, Conv, [32, 3, 1]],  # 0
+   [-1, 1, Conv, [64, 3, 2]],  # 1-P1/2
+   [-1, 1, Bottleneck, [64]],
+   [-1, 1, Conv, [192, 3, 2]],  # 3-P2/4
+   [-1, 1, BottleneckMSPA, [192]],
+   [-1, 1, Conv, [384, 3, 2]],  # 5-P3/8
+   [-1, 4, BottleneckMSPA, [384]],
+   [-1, 1, Conv, [640, 3, 2]],  # 7-P4/16
+   [-1, 4, BottleneckMSPA, [640]],
+   [-1, 1, Conv, [1024, 3, 2]], # 9-P5/32
+   [-1, 2, BottleneckMSPA, [1024]],
+   [-1, 1, Conv, [1280, 3, 2]], # 11-P6/64
+   [-1, 2, BottleneckMSPA, [1280]],  # 12
+  ]
+
+# 2 (P1 backbone)   /2
+# 4 (P2 backbone)   /4
+# 6 (P3 backbone)   /8
+# 8 (P4 backbone)   /16
+# 10 (P5 backbone)   /32
+# 12 (P6 backbone)   /64
+
+# MSP feat PRB neck
+head:
+  [
+   # bifusion module 1
+   [12, 1, SPPCSPC, [640]],  # 13
+   [-1, 1, Conv, [512, 1, 1]], #14 (/64)
+   [[10, 8, -1], 1, RBBlockA, [640, '512,1,1;384,1,2', 2, 'nearest']],  # 15
+   [-1, 1, Bottleneck, [512, False]],
+   [-1, 2, BottleneckMSPA, [512]],  # 17 (/32)
+
+   #    BFM3
+   [[-1,14], 1, BFM, [640, '320,1,1;320,1,1']], 
+   [-1, 1, Bottleneck, [480, False]],
+   [-1, 2, BottleneckMSPA, [480]],  # 20 (/64)
+   # end of bifusion module 1
+   
+   
+   # bifusion module 2
+   [10, 1, SPPCSPC, [480]],  # 21
+   [-1, 1, Conv, [512, 1, 1]], #22 (/32)
+   [[-1, 17], 1, Shortcut, [1]],  
+   [[8, 6, -1], 1, RBBlockA, [480, '384,1,1;320,1,2', 2, 'nearest']],  # 24
+   [-1, 1, Bottleneck, [480, False]],
+   [-1, 2, BottleneckMSPA, [480]],  # 26 (/16)
+
+
+   #    BFM2
+   [[-1,22], 1, BFM, [512, '256,1,1;256,1,1']], 
+   [-1, 1, Bottleneck, [512, False]],
+   [-1, 2, BottleneckMSPA, [512]],  # 29 (/32)
+   # end of bifusion module 2
+
+
+   # bifusion module 3
+   [8, 1, SPPCSPC, [384]],  # 30
+   [-1, 1, Conv, [480, 1, 1]], #31 (/16)
+   [[-1, 26], 1, Shortcut, [1]],  # 
+   [[6, 4, -1], 1, RBBlockA, [384, '256,1,1;192,1,2', 2, 'nearest']],  # 33
+   [-1, 1, Bottleneck, [192, False]],
+   [-1, 2, BottleneckMSPA, [192]],  # 35 (/8)
+
+   #    BFM1
+   [[-1,31], 1, BFM, [480, '240,1,1;240,1,1']], 
+   [-1, 1, Bottleneck, [480, False]],
+   [-1, 2, BottleneckMSPA, [480]],  # 38 (/16)
+   # end of bifusion module 3
+   
+   
+   #Lead Head
+   [35, 1, Conv, [320, 3, 1]],
+   [38, 1, Conv, [640, 3, 1]],
+   [29, 1, Conv, [960, 3, 1]],   
+   [20, 1, Conv, [1280, 3, 1]],
+
+   #Iux Head
+   [35, 1, Conv, [320, 3, 1]],
+   [26, 1, Conv, [640, 3, 1]],
+   [17, 1, Conv, [960, 3, 1]],   
+   [14, 1, Conv, [1280, 3, 1]],
+
+   [[39,40,41,42,43,44,45,46], 1, IAuxDetect, [nc, anchors]],   # Detect(P3, P4, P5, P6)
+  ]
