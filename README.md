@@ -3,9 +3,10 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/smiletrack-similarity-learning-for-multiple/multi-object-tracking-on-mot20-1)](https://paperswithcode.com/sota/multi-object-tracking-on-mot20-1?p=smiletrack-similarity-learning-for-multiple)
 
- **SMILEtrack: SiMIlarity LEarning for Multiple Object Tracking (AAAI 2024)**  
->Yu-Hsiang Wang, Jun-Wei Hsieh, Ping-Yang Chen, Ming-Ching Chang, Hung Hin So, Xin Li  
->[arXiv:2211.08824](https://arxiv.org/abs/2211.08824) 
+> **[SMILEtrack: SiMIlarity LEarning for Multiple Object Tracking](https://arxiv.org/abs/2211.08824)**  
+>Yu-Hsiang Wang, Jun-Wei Hsieh, Ping-Yang Chen, Ming-Ching Chang, Hung Hin So, Xin Li
+
+Our paper was accepted by AAAI 2024
 
 
 
@@ -88,13 +89,13 @@ By submitting the txt files produced in this part to MOTChallenge website and yo
 Tuning the tracking parameters carefully could lead to higher performance. In the paper we apply ByteTrack's calibration.
 
 ##  Test on MOT17 with detector PRBNet
->If you want to test on MOT20, please change *<dataets_dir/MOT17>* and *--benchmark "MOT17"* to *<dataets_dir/MOT20>* and *--benchmark "MOT20"* 
 
 ```
 cd <SMILEtrack_Official-main/prb>
 $ python3 test_track_prb.py --source <dataets_dir/MOT17> --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
+>If you want to test on MOT20, please change *<dataets_dir/MOT17>* and *--benchmark "MOT17"* to *<dataets_dir/MOT20>* and *--benchmark "MOT20"* 
 
 ## Track with detector PRBNet/yolov7
 
@@ -102,15 +103,24 @@ You can apply SMILEtrack on your own detector weights and track on image or vide
 
 Run SMILEtrack with PRBnet:
 ```
-cd <SMILEtrack_Official-main/prb>
+cd SMILEtrack_Official/prb
 $ python3 smiletrack_demo_prb.py --weights <path_to_prb_weights> --source <path_to_images/video> --project <save_result_dir>
 ```
 Run SMILEtrack with yolov7:
 ```
-cd <SMILEtrack_Official-main/yolov7>
+cd SMILEtrack_Official/yolov7
 $ python3 smiletrack_demo_yolov7.py --weights <path_to_yolov7_weights> --source <path_to_images/video> --project <save_result_dir>
 ```
-If your detector code is similar to the yolo series. You can add "SMILEtrack_Official/tracker" into your detector directory and modify the example code(like **smiletrack_demo_prb.py**) to apply SMILEtrack on your detector.
+>If your detector code is similar to the yolo series, You can add "SMILEtrack_Official/tracker" into your detector directory and modify the example code(like **smiletrack_demo_prb.py**) to apply SMILEtrack on your detector.
+
+The key code to insert SMILEtrack into your detector prediction code is as follows:
+```
+from tracker.mc_SMILEtrack import SMILEtrack
+tracker = SMILEtrack(args)
+for image in images:
+   dets = detector(image)
+   online_targets = tracker.update(dets, info_imgs)
+```
 # 7.Tracking performance
 ## Results on MOT17 challenge test set
 | Tracker | MOTA | IDF1 | HOTA |
