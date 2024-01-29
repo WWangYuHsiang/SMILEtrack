@@ -95,7 +95,7 @@ cd <SMILEtrack_Official-main/prb>
 $ python3 test_track_prb.py --source <dataets_dir/MOT17> --with-reid --benchmark "MOT17" --eval "test" --fp16 --fuse
 $ python3 tools/interpolation.py --txt_path <path_to_track_result>
 ```
->If you want to test on MOT20, please change *<dataets_dir/MOT17>* and *--benchmark "MOT17"* to *<dataets_dir/MOT20>* and *--benchmark "MOT20"* 
+>To test on MOT20, please change *<dataets_dir/MOT17>* and *--benchmark "MOT17"* to *<dataets_dir/MOT20>* and *--benchmark "MOT20"* 
 
 ## Track with detector PRBNet/yolov7
 
