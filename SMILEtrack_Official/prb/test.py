@@ -9,6 +9,8 @@ import torch
 import yaml
 from tqdm import tqdm
 
+test1 = 1
+
 from models.experimental import attempt_load
 from utils.datasets import create_dataloader
 from utils.general import coco80_to_coco91_class, check_dataset, check_file, check_img_size, check_requirements, \
